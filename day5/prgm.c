@@ -7,7 +7,7 @@ int num_prod,nonter=0;
 char input[20][20];
 char first[20][20];
 char follow[20][20];
-char epi =238;
+char epi ='#';
 
 
 char calFirst(char letter,int i){
@@ -62,15 +62,41 @@ void main(){
 	for(i=0;i<nonter;i++){
 		for(j=0;j<num_prod;j++){
 			if(input[j][0] == first[i][0]){
+				int m,n;
 				if(islower(input[j][2])){
 					int len = strlen(first[i]);
 					first[i][len] = input[j][2];
 					first[i][len+1] ='\0';
+					for(m=0;m<num_prod;m++){
+						char text = calFirst(input[j][2],m);
+						int len = strlen(first[i]);
+						int flag=1;
+						for(n=0;n<len;n++){
+							if(first[i][n]==text){
+								flag=0;
+							}
+						}
+						if(flag==1){
+							first[i][len] = text;
+							first[i][len+1] ='\0';
+						}
+					}
 				}else{
-					char text = calFirst(input[j][2],0);
-					int len = strlen(first[i]);
-					first[i][len] = text;
-					first[i][len+1] ='\0';
+					
+					for(m=0;m<num_prod;m++){
+						char text = calFirst(input[j][2],m);
+						int len = strlen(first[i]);
+						int flag=1;
+						for(n=0;n<len;n++){
+							if(first[i][n]==text){
+								flag=0;
+							}
+						}
+						if(flag==1){
+							first[i][len] = text;
+							first[i][len+1] ='\0';
+						}
+					}
 				}
 			}
 		}
